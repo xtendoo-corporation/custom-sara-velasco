@@ -3,31 +3,16 @@
 
     <!-- Herencia de la vista web.external_layout_bubble -->
     <template id="external_layout_bubble_inherit" inherit_id="web.external_layout_bubble">
-        <!-- Reemplazar la fila del header para mover el logo a la izquierda -->
-        <xpath expr="//table[hasclass('o_ignore_layout_styling')][1]//tr" position="replace">
+        <!-- Mover la dirección del cliente al lado derecho en el body -->
+        <xpath expr="//t[@t-call='web.address_layout'][@custom_layout_address='true']/ancestor::tr[1]" position="replace">
             <tr>
-                <!-- Logo a la izquierda -->
-                <td class="p-0 text-start">
-                    <img t-if="company.logo" class="o_company_logo mb-2" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
-                    <div name="company_address">
-                        <ul class="list-unstyled" name="company_address_list">
-                            <li t-if="company.is_company_details_empty">
-                                <span t-field="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
-                            </li>
-                            <li t-else="">
-                                <span t-field="company.company_details"/>
-                            </li>
-                            <li t-if="not forced_vat"/>
-                            <li t-else="">
-                                <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
-                                <span t-esc="forced_vat"/>
-                            </li>
-                        </ul>
-                    </div>
+                <!-- Dirección del cliente a la izquierda -->
+                <td t-attf-class="p-0 pe-2 text-start {{'pt-3' if information_block else ''}}">
+                    <t t-call="web.address_layout" custom_layout_address="true"/>
                 </td>
-                <!-- Tagline a la derecha -->
-                <td t-if="company.report_header" class="o_company_tagline fw-bold p-0 ps-2 text-end align-top">
-                    <span t-field="company.report_header"/>
+                <!-- Título del documento a la derecha -->
+                <td t-if="not information_block" class="align-bottom p-0 ps-2">
+                    <h2 class="mb-4 text-nowrap text-end" t-out="layout_document_title"/>
                 </td>
             </tr>
         </xpath>
