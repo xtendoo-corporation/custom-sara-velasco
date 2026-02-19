@@ -12,6 +12,7 @@
     "license": "LGPL-3",
     "depends": ["web", "account"],
     "data": [
+        'views/invoice_form_view.xml',
         "views/external_layout_bubble.xml",
     ],
     "installable": True,

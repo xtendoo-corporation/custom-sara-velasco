@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!-- Herencia de la vista web.external_layout_bubble -->
     <template id="external_layout_bubble_inherit" inherit_id="web.external_layout_bubble">
-        <!-- Mover la dirección del cliente al lado derecho en el body -->
+
+        <!-- Reemplazo del bloque dirección + título -->
         <xpath expr="//t[@t-call='web.address_layout'][@custom_layout_address='true']/ancestor::tr[1]" position="replace">
-            <tr>
-                <!-- Dirección del cliente a la izquierda -->
+            <tr style="margin-bottom: 30px; display: block;">
+                <!-- Dirección del cliente -->
                 <td t-attf-class="p-0 pe-2 text-start {{'pt-3' if information_block else ''}}">
                     <t t-call="web.address_layout" custom_layout_address="true"/>
                 </td>
-                <!-- Título del documento a la derecha -->
+
+                <!-- Título del documento -->
                 <td t-if="not information_block" class="align-bottom p-0 ps-2">
-                    <h2 class="mb-4 text-nowrap text-end" t-out="layout_document_title"/>
+                    <h2 class="text-nowrap text-end" t-out="layout_document_title"/>
                 </td>
             </tr>
         </xpath>
+
     </template>
 
 </odoo>
+
